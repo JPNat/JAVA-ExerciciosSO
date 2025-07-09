@@ -20,7 +20,7 @@ public class Usuario extends Thread {
         
         }
 
-        System.out.println("Lista 3sequenciada");
+        System.out.println("Lista sequenciada");
         for (int idx = 0; idx < vetor.length; idx++) {
             
             Arrays.sort(vetor);
@@ -34,27 +34,46 @@ public class Usuario extends Thread {
 class Programa{
 
     public static void main(String[] args) {
+
+        int opcao;
+
+        do {
+            
         
-        Scanner scanner = new Scanner(System.in);
+            Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Digite quanto números quer inserir: ");
+            System.out.print("Digite quanto números quer inserir: ");
 
-        int tamanho_vetor = scanner.nextInt();
-        System.out.print("\n");
+            int tamanho_vetor = scanner.nextInt();
+            System.out.print("\n");
+        
 
 
-        int array[] = new int[tamanho_vetor];
+            int array[] = new int[tamanho_vetor];
 
-        for (int i = 0; i < tamanho_vetor; i++) {
+            for (int i = 0; i < tamanho_vetor; i++) {
 
-            System.out.print("Digite os números que deseja inserir: ");
-            int numero_inserir = scanner.nextInt();
-            array[i] = numero_inserir;
-        }
+                System.out.print("Digite os números que deseja inserir: ");
+                int numero_inserir = scanner.nextInt();
+                array[i] = numero_inserir;
+            }
 
-        Usuario threadA = new Usuario(array);
+        
+        
+            Usuario threadA = new Usuario(array);
+            threadA.start();
+            try {
+                threadA.join();
+            } catch (InterruptedException e) {
+                System.out.println("Thread foi interrompida.");
+            }
 
-        threadA.start();
+            System.out.print("Deseja fazer novamente? 1 - Sim ou 0 - Sair: ");
+
+            opcao = scanner.nextInt();
+
+
+        } while (opcao != 0);
 
         System.out.println("FIM Main");
     }
